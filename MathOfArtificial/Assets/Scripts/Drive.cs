@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Timeline;
 using UnityEngine;
 
 public class Drive : MonoBehaviour
@@ -9,6 +8,7 @@ public class Drive : MonoBehaviour
     public float acceleration = 1.0f;
     float currentMovement;
     bool forwardMovement;
+    bool youShouldTakeOver = false;
     public float deceleration = 1.0f;
     float speed;
     public float rotationSpeed = 120.0f;
@@ -28,15 +28,25 @@ public class Drive : MonoBehaviour
         Vector3 tP = transform.position;
 
         float distance = (fP - tP).magnitude;
-        Debug.Log(distance);
+        Debug.Log("distance is" + distance);
     }
 
     // Update is called once per frame
     void Update()
     {
-        // ManualMovement();
-        AutomaticMovement();
+        if (youShouldTakeOver)
+        {
+            ManualMovement();
+        }
+        else
+        {
+            AutomaticMovement();
+        }
 
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            youShouldTakeOver = !youShouldTakeOver;
+        }
     }
 
     void AutomaticMovement()
@@ -52,16 +62,26 @@ public class Drive : MonoBehaviour
         float angle = (Mathf.Acos(((tF.x * fD.x) + (tF.z * fD.z)) / ((tF.magnitude) * fD.magnitude)))*180 / Mathf.PI;
         Vector3 crossProduct = new Vector3(tF.y * fD.z - tF.z * fD.y, tF.z * fD.x - tF.x * fD.z, tF.x * fD.y - tF.y * fD.x);
         float turningDirection = crossProduct.y;
-        Debug.Log(turningDirection);
-        if (turningDirection < 0)
+        if (turningDirection < 0 && Mathf.Abs(angle) > 0.1f)
         {
-            transform.Rotate(new Vector3(0, -angle, 0));
+            Debug.Log("turn right");
+            transform.Rotate(new Vector3(0, -rotationSpeed * Time.deltaTime, 0));
         }
-        else if (turningDirection > 0)
+        else if (turningDirection > 0 && Mathf.Abs(angle) > 0.1f)
         {
-            transform.Rotate(new Vector3(0, angle, 0));
+            Debug.Log("turn left");
+            transform.Rotate(new Vector3(0, rotationSpeed * Time.deltaTime, 0));
         }
-        Debug.Log("Angle is " + angle);
+
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            Debug.Log("Angle is " + angle);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            CalculateDistance();
+        }
     }
 
     void ManualMovement()
