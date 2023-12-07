@@ -25,7 +25,7 @@ public class FireShell : MonoBehaviour
     {
         upAndDown = Input.GetAxisRaw("Vertical");
         leftAndRight = Input.GetAxisRaw("Horizontal");
-        transform.Rotate(Vector3.forward * rotationSpeed * upAndDown * Time.deltaTime);
+        transform.Rotate(Vector3.back * rotationSpeed * upAndDown * Time.deltaTime);
         speed += leftAndRight * Time.deltaTime;
         if (speed > 3f)
         {
@@ -40,7 +40,7 @@ public class FireShell : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && fireRate < 0)
         {
-            GameObject spawn = Instantiate(shell, spawnPoint.transform.position, Quaternion.identity);
+            GameObject spawn = Instantiate(shell, transform.position, Quaternion.identity);
             spawn.GetComponent<Rigidbody>().AddRelativeForce((spawnPoint.transform.position - transform.position).normalized * launchPower, ForceMode.Impulse);
             fireRate = fireRateInit;
         }

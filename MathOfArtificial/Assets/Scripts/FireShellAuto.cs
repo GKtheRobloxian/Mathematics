@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class FireShellAuto : MonoBehaviour
 {
@@ -22,19 +24,31 @@ public class FireShellAuto : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Vector3 distance = target.transform.position - spawnPoint.transform.position;
+        Vector3 distance = transform.position - target.transform.position;
         float xDistance = distance.x;
-        float zDistance = Mathf.Abs(distance.z);
-        float zRotation = transform.localEulerAngles.y;
-        float initialZVelocity = Mathf.Abs(launchPower * Mathf.Sin(zRotation * Mathf.PI / 180f) / 3f);
-        float initialXVelocity = Mathf.Abs(launchPower * Mathf.Cos(zRotation * Mathf.PI / 180f) / 3f);
+        float zRotation = transform.localEulerAngles.y + 90f;
+        float zRotationAngle = zRotation * Mathf.PI / 180f;
         float launchVelocity = launchPower / 3f;
-        float airTime = 2 * (50 / (3 * 9.8f) * Mathf.Sin(zRotation * Mathf.PI / 180f)) + (initialZVelocity + Mathf.Sqrt(initialZVelocity * initialZVelocity + 4 * 4.9f * zDistance)) / 9.8f;
-        Debug.Log((50/3) * Mathf.Sin(zRotation * Mathf.PI/180f) / 9.8f);
-        Debug.Log(airTime);
+        float initialZVelocity = (launchVelocity * Mathf.Sin(zRotationAngle));
+        float initialXVelocity = (launchVelocity * Mathf.Cos(zRotationAngle));
+        float airTime = (launchVelocity * (Mathf.Sin(zRotationAngle)) / 4.9f);
+        float xLaunch = airTime * initialXVelocity;
+        float properXLaunch = xDistance;
+        float properZRotation = 90 + (Mathf.Asin((properXLaunch * 4.9f) / (launchVelocity * launchVelocity)) * 180f / Mathf.PI);
+        if (properZRotation - zRotation < 0 && Mathf.Abs(properZRotation - (zRotation - 315)) > 1f)
+        {
+            transform.rotation = Quaternion.Euler(new Vector3 (90, transform.localEulerAngles.y - rotationSpeed * Time.deltaTime, 0));
+            Debug.Log("I SHOULD BE ROTATING");
+        }
+        else if (properZRotation - zRotation > 0 && Mathf.Abs(properZRotation - (zRotation - 315)) > 1f)
+        {
+            transform.rotation = Quaternion.Euler(new Vector3(90, transform.localEulerAngles.y + rotationSpeed * Time.deltaTime, 0));
+            Debug.Log("I SHOULD BE ROTATING");
+        }
 
-        // -zDistance = -initialZPower*time - 4.9(time*time)
+        Debug.Log(properZRotation);
+        Debug.Log(zRotation);
 
-        // (50/3)/9.8
+        // arcsin((xLaunch * 4.9f) / (launchVelocity ^ 2)) = ((2theta))
     }
 }

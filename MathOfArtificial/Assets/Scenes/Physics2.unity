@@ -243,14 +243,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 291700983}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.6532815, y: 0.27059805, z: -0.27059805, w: 0.6532815}
+  m_LocalRotation: {x: 0.6532815, y: -0.27059805, z: -0.27059805, w: -0.6532815}
   m_LocalPosition: {x: -12, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1747041517}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: -45}
+  m_LocalEulerAnglesHint: {x: 270, y: 0, z: 45}
 --- !u!1 &345309966
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,6 +464,7 @@ GameObject:
   - component: {fileID: 789312290}
   - component: {fileID: 789312289}
   - component: {fileID: 789312293}
+  - component: {fileID: 789312294}
   m_Layer: 0
   m_Name: Cylinder (1)
   m_TagString: Untagged
@@ -553,7 +554,7 @@ Transform:
   m_GameObject: {fileID: 789312288}
   serializedVersion: 2
   m_LocalRotation: {x: 0.6532815, y: -0.27059805, z: 0.27059805, w: 0.6532815}
-  m_LocalPosition: {x: 11.971293, y: 1.0000002, z: 0.44438884}
+  m_LocalPosition: {x: 12, y: 1.0000002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -575,9 +576,36 @@ MonoBehaviour:
   shell: {fileID: 4567546492988436763, guid: 4095e55d2f872194a80891fc03552a77, type: 3}
   spawnPoint: {fileID: 1905989704}
   target: {fileID: 291700983}
-  rotationSpeed: 0
+  rotationSpeed: 45
   launchPower: 50
   fireRate: 0
+--- !u!54 &789312294
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789312288}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1747041514
 GameObject:
   m_ObjectHideFlags: 0
@@ -655,7 +683,7 @@ Transform:
   m_GameObject: {fileID: 1747041514}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 1, z: -0}
+  m_LocalPosition: {x: -0, y: -1, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
