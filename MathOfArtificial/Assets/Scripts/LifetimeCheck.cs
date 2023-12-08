@@ -19,7 +19,7 @@ public class LifetimeCheck : MonoBehaviour
 
         if (transform.position.z < 0)
         {
-            Debug.Log(lifetime);
+            // Debug.Log(lifetime);
         }
     }
 }

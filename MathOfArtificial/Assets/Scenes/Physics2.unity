@@ -578,7 +578,7 @@ MonoBehaviour:
   target: {fileID: 291700983}
   rotationSpeed: 45
   launchPower: 50
-  fireRate: 0
+  fireRate: 1
 --- !u!54 &789312294
 Rigidbody:
   m_ObjectHideFlags: 0
