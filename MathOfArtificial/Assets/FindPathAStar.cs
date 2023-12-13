@@ -33,6 +33,11 @@ public class PathMarker
             return location.Equals(((PathMarker)obj).location);
         }
     }
+
+    public override int GetHashCode()
+    {
+        return 0;
+    }
 }
 
 public class FindPathAStar : MonoBehaviour
@@ -119,16 +124,15 @@ public class FindPathAStar : MonoBehaviour
             {
                 open.Add(new PathMarker(neighbour, G, H, F, pathBlock, thisNode));
             }
-
-            open = open.OrderBy(p => p.F).ThenBy(n =>n.H).ToList<PathMarker>();
-            PathMarker pm = (PathMarker)open.ElementAt(0);
-            closed.Add(pm);
-
-            open.RemoveAt(0);
-            pm.marker.GetComponent<Renderer>().material = closedMaterial;
-
-            lastPos = pm;
         }
+        open = open.OrderBy(p => p.F).ToList<PathMarker>();
+        PathMarker pm = (PathMarker)open.ElementAt(0);
+        closed.Add(pm);
+
+        open.RemoveAt(0);
+        pm.marker.GetComponent<Renderer>().material = closedMaterial;
+
+        lastPos = pm;
     }
 
     bool UpdateMarker(MapLocation pos, float g, float h, float f, PathMarker prt)
@@ -183,7 +187,7 @@ public class FindPathAStar : MonoBehaviour
             BeginSearch();
         }
 
-        if (Input.GetKeyDown(KeyCode.Q) && !done)
+        if (Input.GetKey(KeyCode.Q) && !done)
         {
             Search(lastPos);
         }
