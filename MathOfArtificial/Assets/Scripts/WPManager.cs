@@ -24,13 +24,13 @@ public class WPManager : MonoBehaviour
             foreach(GameObject wp in waypoints)
             {
                 graph.AddNode(wp);
-            }
-            foreach (Link l in links)
-            {
-                graph.AddEdge(l.node1, l.node2);
-                if (l.dir == Link.direction.BI)
+                foreach (Link l in links)
                 {
-                    graph.AddEdge(l.node2, l.node1);
+                    graph.AddEdge(l.node1, l.node2);
+                    if (l.dir == Link.direction.BI)
+                    {
+                        graph.AddEdge(l.node2, l.node1);
+                    }
                 }
             }
         }
@@ -39,6 +39,6 @@ public class WPManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.Log(graph.pathList.Count);
     }
 }

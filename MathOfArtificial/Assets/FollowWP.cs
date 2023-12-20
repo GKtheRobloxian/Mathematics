@@ -7,7 +7,7 @@ public class FollowWP : MonoBehaviour
     Transform goal;
     public float speed = 5.0f;
     float accuracy = 5.0f;
-    float rotSpeed = 2.0f;
+    public float rotSpeed = 5.0f;
 
     public GameObject wpManager;
     GameObject[] wps;
@@ -20,29 +20,35 @@ public class FollowWP : MonoBehaviour
         wps = wpManager.GetComponent<WPManager>().waypoints;
         g = wpManager.GetComponent<WPManager>().graph;
         currentNode = wps[0];
-
-        Invoke("GoToRock", 1.5f);
     }
 
     public void GoToHeli()
     {
         g.AStar(currentNode, wps[15]);
         currentWP = 0;
-        Debug.Log(wps[15].name);
+    }
+
+    public void GoToStart()
+    {
+        g.AStar(currentNode, wps[0]);
+        currentWP = 0;
     }
 
     public void GoToRock()
     {
         g.AStar(currentNode, wps[6]);
         currentWP = 0;
-        Debug.Log(wps[6].name);
+    }
+
+    public void GoToFactory()
+    {
+        g.AStar(currentNode, wps[12]);
+        currentWP = 0;
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        Debug.Log(currentWP);
-        Debug.Log(g.pathList.Count);
         if (g.pathList.Count == 0 || currentWP == g.pathList.Count)
         {
             return;

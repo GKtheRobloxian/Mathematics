@@ -32,6 +32,11 @@ public class Graph
         }
     }
 
+    public GameObject getPathPoint(int index)
+    {
+        return pathList[index].getId();
+    }
+
     Node FindNode(GameObject id)
     {
         foreach (Node n in nodes)
@@ -70,7 +75,7 @@ public class Graph
             Node thisNode = open[i];
             if (thisNode.getId() == endId)
             {
-                //ReconstructPath(start, end);
+                ReconstructPath(start, end);
                 return true;
             }
 
@@ -139,9 +144,9 @@ public class Graph
         int iteratorCount = 0;
         lowestf = l[0].f;
 
-        for (int i = 1; i < l.Count; i++)
+        for (int i = 1; i < l.Count; ++i)
         {
-            if (l[i].f <= lowestf)
+            if (l[i].f < lowestf)
             {
                 lowestf = l[i].f;
                 iteratorCount = count;
