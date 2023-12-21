@@ -665,6 +665,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   acceleration: 2
   maxSpeed: 4.5
+  rotationSpeed: 4
+  speed: 0
   waypoints: []
   currentWaypoint: 0
 --- !u!1 &1981939382
